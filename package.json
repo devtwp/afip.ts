@@ -1,6 +1,6 @@
 {
   "name": "afip.ts-fork-ssl-fix",
-  "version": "3.2.3-rc1",
+  "version": "3.2.3",
   "description": "Afip typescript SDK",
   "source": "src/index.ts",
   "main": "lib/index.js",
