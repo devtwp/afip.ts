@@ -31,10 +31,12 @@ export class SoapClientFacade {
       rejectUnauthorized: false,
       minVersion: 'TLSv1',
       secureOptions: 0x20,
+      ciphers: 'DEFAULT@SECLEVEL=1',
     });
     
     const soapOptions = {
       ...options,
+      agent: weakDHAgent,
       wsdl_options: {
         ...options?.wsdl_options,
         agent: weakDHAgent,
