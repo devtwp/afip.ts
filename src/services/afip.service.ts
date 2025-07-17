@@ -55,6 +55,10 @@ export class AfipService<T extends Client> {
         disableCache: true,
         forceSoap12Headers: this._soapParams.v12,
         ...this._soapParams.options,
+        wsdl_options: {
+          ...(this._soapParams.options?.wsdl_options || {}),
+          agent: this._soapParams.options?.wsdl_options?.agent || this.context.soapHttpAgent,
+        }
       },
     });
     client.setEndpoint(this._soapParams.url);

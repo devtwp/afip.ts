@@ -8,6 +8,8 @@ import {
 import { EndpointsEnum, SoapServiceVersion } from "./enums";
 import { WsdlPathEnum } from "./soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "./soap/service-names.enum";
+import { Agent } from 'https';
+
 
 export type SoapAsyncFunc<I, O> = (
   input: I,
@@ -99,6 +101,11 @@ export type Context = {
    * The path of the auth obj if the package is auto managed
    */
   ticketPath?: string;
+
+  /**
+   * Modify the soap http agent, useful for testing purposes
+   */
+  soapHttpAgent?: Agent;
 };
 
 export interface IVoucher {
