@@ -26,15 +26,18 @@ export class SoapClientFacade {
     wsdl,
     options,
   }: SoapClientParams): Promise<T> {
+
+    const weakDHAgent = new https.Agent({
+      rejectUnauthorized: false,
+      minVersion: 'TLSv1',
+      secureOptions: 0x20,
+    });
+    
     const soapOptions = {
       ...options,
       wsdl_options: {
         ...options?.wsdl_options,
-        agent: options?.wsdl_options?.agent || new https.Agent({
-          rejectUnauthorized: false,
-          minVersion: 'TLSv1',
-          secureOptions: 0x00000020, // SSL_OP_ALLOW_WEAK_DH
-        }),
+        agent: weakDHAgent,
       },
     };
 
