@@ -1,10 +1,12 @@
 import { resolve } from "path";
 import { Client, createClientAsync } from "soap";
 import { SoapClientParams } from "../types";
+import * as https from 'https';
+
 
 export class SoapClientFacade {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private construct() {}
+  private construct() { }
 
   /**
    * Geth the path for the WSDL file stored on the WSDL folder.
@@ -24,9 +26,21 @@ export class SoapClientFacade {
     wsdl,
     options,
   }: SoapClientParams): Promise<T> {
+    const soapOptions = {
+      ...options,
+      wsdl_options: {
+        ...options?.wsdl_options,
+        agent: options?.wsdl_options?.agent || new https.Agent({
+          rejectUnauthorized: false,
+          minVersion: 'TLSv1',
+          secureOptions: 0x00000020, // SSL_OP_ALLOW_WEAK_DH
+        }),
+      },
+    };
+
     return (await createClientAsync(
       SoapClientFacade.getWsdlPath(wsdl),
-      options
+      soapOptions
     )) as T;
   }
 }
