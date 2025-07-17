@@ -23,7 +23,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
       wsdl: WsdlPathEnum.WSFE,
       wsdl_test: WsdlPathEnum.WSFE_TEST,
       serviceName: ServiceNamesEnum.WSFE,
-      v12: true,
+      v12: false,
     });
   }
 
